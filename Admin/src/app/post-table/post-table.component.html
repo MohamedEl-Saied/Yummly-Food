@@ -1,0 +1,94 @@
+<div class="row" *ngIf="!isResponsDone">
+    <div class="col-lg-12">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>
+<div class="main-content" *ngIf="isResponsDone">
+    <div class="container-fluid">
+        <div class="row">
+            <mat-form-field class="example-full-width offset-3 col-md-6">
+                <mat-label>Search</mat-label>
+                <input matInput placeholder="Search for message" (change)="search($event)">
+                <i class="material-icons search-icon ">search</i>
+            </mat-form-field>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title ">Posts Table</h4>
+                        <p class="card-category"> All posts stats</p>
+                    </div>
+                    <div class="card-body ">
+                        <div class="table-responsive ">
+                            <table class="table table-hover">
+                                <thead class="text-success">
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Title
+                                    </th>
+
+                                    <th>
+                                        Author
+                                    </th>
+                                    <th>
+                                        #Comments
+                                    </th>
+
+                                    <th>
+                                        Created AT | Day
+                                    </th>
+                                    <th>
+                                        Created AT | Time
+                                    </th>
+                                    <th>
+                                        Last Update | Day
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                    </th>
+                                </thead>
+                                <tbody class="text-black" *ngFor="let post of posts;let currentIndex = index">
+                                    <tr>
+                                        <td>
+                                            {{currentIndex+1}}
+                                        </td>
+                                        <td>
+                                            {{post.title}}
+                                        </td>
+                                        <td>
+                                            {{post.author.username}}
+                                        </td>
+                                        <td>
+                                            {{post.comments.length}}
+                                        </td>
+                                        <td>{{ stringAsDate(post.createdAt) | date:'dd/MM/yy' }}
+                                        </td>
+                                        <td>{{ stringAsDate(post.createdAt) | date:'hh:mm' }}
+                                        </td>
+                                        <td>{{ stringAsDate(post.updatedAt) | date:'dd/MM/yy' }}
+                                        </td>
+
+
+                                        <td>
+                                            <i class="material-icons" routerLink="/dashboard/post/{{post._id}}/details">remove_red_eye</i>
+                                            <i routerLink="/dashboard/post/{{ post._id }}" class="material-icons">mode</i>
+                                            <i (click)="deletePost(post._id,post.title,currentIndex)" class="material-icons">delete</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

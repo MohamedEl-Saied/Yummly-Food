@@ -1,0 +1,147 @@
+$backgroud-color-main: #ffffff;
+$primary-color-font: #ffffff;
+$black-font-color: #000000;
+$secondary-color: #f98169;
+$grey: rgba(220, 231, 235, 1);
+$secondary-color-font: rgb(161, 147, 147);
+$btn-height: 50px;
+$btn-width: 200px;
+$number-of-options: 5;
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:wght@300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+.returned-list__container {
+  .parts {
+    display: flex;
+    flex-wrap: wrap;
+    transition: all 1s;
+    width: 100%;
+    min-height: 100vh;
+    flex-grow: 1;
+    .recipe-container {
+      padding-top: 10%;
+      height: 100%;
+      width: 100%;
+      margin: 0 auto;
+      justify-content: center;
+      align-items: center;
+    }
+    .action-container {
+      display: flex;
+      flex-direction: column;
+    }
+    .previous {
+      background-color: #333;
+      color: #9c9d9e;
+      text-decoration: none;
+      padding: 10px 16px;
+      font-size: 20px;
+      position: fixed;
+      margin: 42% 2% 0 2%;
+      z-index: 1000;
+      top: 0;
+      &:hover {
+        background-color: rgb(68, 68, 68);
+        cursor: pointer;
+        color: white;
+      }
+    }
+    .recipes {
+      height: 35%;
+      width: 30%;
+      margin-right: 10px;
+      .food-item {
+        width: 100%;
+        height: 90%;
+        padding: 20px;
+        margin-bottom: 25px;
+        border: 1px solid #d9dde5;
+        border-radius: 10px;
+        h2 {
+          margin-top: 0px;
+          margin-bottom: 30px;
+          padding-bottom: 8px;
+          text-transform: capitalize;
+          font-family: "Spectral", serif;
+          font-size: 28px;
+          width: 100%;
+          border-bottom: 1px solid #d9dde5;
+          color: #121212;
+        }
+        img {
+          width: 100%;
+          overflow: hidden;
+          position: relative;
+          border-radius: 10px;
+        }
+        .price {
+          font-size: 17px;
+          color: #f2745f;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          padding: 8px 14px;
+          position: absolute;
+          margin-top: -40px;
+          background-color: rgba(250, 250, 250, 0.9);
+        }
+        .text-content {
+          padding: 20px 20px 10px 20px;
+        }
+        h4 {
+          margin-top: 0px;
+          font-family: "Spectral", serif;
+          font-size: 18px;
+          color: #121212;
+        }
+        i {
+          color: #f2745f;
+          font-size: 16px;
+          padding-right: 10px;
+        }
+      }
+
+      .content__footer {
+        text-align: center;
+        margin: 20px 3rem;
+        a {
+          color: $secondary-color;
+          text-decoration: none;
+          display: inline-block;
+          background: $secondary-color;
+          padding: 0.45em 1em;
+          width: 90%;
+          text-align: center;
+          border-radius: 5px;
+          color: #fff;
+          font-weight: 500;
+          letter-spacing: 0.2px;
+          font-size: 15px;
+          transition: transform 250ms ease, box-shadow 250ms ease;
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px 0 $secondary-color;
+          }
+        }
+      }
+    }
+  }
+}
+.dark {
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url() !important;
+  .food-item {
+    h2,
+    h4,
+    span {
+      color: white;
+    }
+  }
+}

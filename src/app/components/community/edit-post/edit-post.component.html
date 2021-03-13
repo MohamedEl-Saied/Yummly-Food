@@ -1,0 +1,50 @@
+<form [formGroup]="form" onSubmit="return false" class="ui inverted segment form" style="margin: 10% auto; width: 50%;">
+    <h4 class="ui dividing header">Edit Post Details</h4>
+    <div class="field form-group">
+        <label>Title</label>
+        <input formControlName="Title" class="form-control" type="text" name="first-name" value="{{postContent.title}}"
+            #titleInput>
+        <div *ngIf="form.controls['Title'].invalid && (form.controls['Title'].touched || form.controls['Title'].dirty)">
+            <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Title'].hasError('required')">
+                required
+                Title</h6>
+            <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Title'].hasError('minlength')">min
+                length
+                is 10</h6>
+            <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Title'].hasError('maxlength')">max
+                length
+                is 255</h6>
+        </div>
+    </div>
+    <div class="field form-group">
+        <label>Content</label>
+        <textarea rows="2" #contentInput formControlName="Content" class="form-control"
+            value="{{postContent.content}}"></textarea>
+        <div
+            *ngIf="form.controls['Content'].invalid && (form.controls['Content'].touched || form.controls['Content'].dirty)">
+            <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Content'].hasError('required')">
+                required
+                Content</h6>
+            <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Content'].hasError('minlength')">
+                min
+                length
+                is 20</h6>
+            <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Content'].hasError('maxlength')">
+                max
+                length
+                is 1024</h6>
+        </div>
+    </div>
+
+    <button (click)="editPost(titleInput.value,contentInput.value)" [disabled]="form.invalid" class="ui button"
+        type="submit">Edit Post</button>
+</form>
+<ngx-spinner type="none">
+    <div class="pan-loader">
+        <div class="loader"></div>
+        <div class="pan-container">
+            <div class="pan"></div>
+            <div class="handle"></div>
+        </div>
+    </div>
+</ngx-spinner>  

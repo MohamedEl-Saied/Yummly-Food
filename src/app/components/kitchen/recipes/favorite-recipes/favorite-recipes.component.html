@@ -1,0 +1,45 @@
+<app-header></app-header>
+<app-chatbot></app-chatbot>
+<ngx-spinner type="none">
+    <div class="pan-loader">
+        <div class="loader"></div>
+        <div class="pan-container">
+            <div class="pan"></div>
+            <div class="handle"></div>
+        </div>
+    </div>
+</ngx-spinner>  
+<div class="returned-list__container {{ isDark ? 'dark' : '' }}" *ngIf="favoriteRecipes">
+    <div class="parts">
+        <div class="row ml-2 recipe-container">
+            <div class="recipes" *ngFor="let recipe of favoriteRecipes">
+                <div class="food-item">
+                    <h2>{{ recipe.dishTypes[0]
+                        }}</h2>
+                    <img src="{{ recipe.image }}" alt="">
+                    <div class="price"><i class="ion fa fa-user-friends"></i>{{ recipe.servings
+                        }}</div>
+                    <div class="text-content">
+                        <h4>{{ recipe.title }}</h4>
+                        <i style="color:#f98169" class="ion fa fa-clock"></i><span class="value pl-1 pr-1">{{
+                            recipe.readyInMinutes
+                            }}</span><span class="title"> Minutes</span>
+                        <ng-container *ngIf="recipe.nutrition">
+                            <div *ngFor="let nutrient of recipe.nutrition.nutrients">
+                                <i style="color:#f98169" class="fas fa-hamburger"></i><span class="value pl-1 pr-1">{{
+                                    nutrient.title
+                                    }}</span><span class="title"> {{nutrient.amount}} {{nutrient.unit}}</span>
+                            </div>
+                        </ng-container>
+                        <footer class="content__footer">
+                            <a routerLink="/kitchen/recipes/recipe-details/{{
+                    recipe.id
+                  }}/information">View Recipe</a>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

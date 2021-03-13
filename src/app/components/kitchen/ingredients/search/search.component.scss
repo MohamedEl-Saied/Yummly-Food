@@ -1,0 +1,138 @@
+@import "./style/animate.scss";
+@import "./style/magnific-popup.scss";
+@import "./style/templatemo-style.scss";
+@import "./style/style.scss";
+@font-face {
+  font-family: "NevisBold";
+  src: local("NevisBold"),
+    url(../../../../../assets/font/NevisBold-KGwl.ttf) format("truetype");
+}
+
+.button-container {
+  width: 30%;
+  //default button
+  .btn {
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 45px;
+    margin-left: auto;
+    margin-bottom: 20px;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 100%;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  /////////////////////////////////
+  //button one
+  ///////////////////////////////
+  .btn-1 {
+    background: transparent;
+    font-weight: 100;
+
+    svg {
+      height: 45px;
+      left: 0;
+      border-radius: 20px;
+      position: absolute;
+      margin-left: auto;
+      top: 0;
+      width: 100%;
+    }
+
+    rect {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2;
+      stroke-dasharray: 422, 0;
+      transition: all 0.35s linear;
+    }
+  }
+
+  .btn-1:hover {
+    background: transparent;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    rect {
+      stroke-width: 5;
+      stroke-dasharray: 15, 310;
+      stroke-dashoffset: 48;
+      transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+  }
+}
+.sub-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.wrapper {
+  --background: white;
+  --width: 20px;
+  --height: 20px;
+  --border-radius: var(--height);
+  width: var(--width);
+  height: var(--height);
+  position: relative;
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .btn {
+    background: var(--background);
+    width: 20px;
+    height: 20px;
+    position: relative;
+    z-index: 3;
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: plus-animation-reverse 0.5s ease-out forwards;
+  }
+  .tooltip {
+    width: 250px;
+    height: 110px;
+    background-color: rgba(165, 165, 165, 0.7);
+    color: white;
+    text-shadow: 0px 0px 10px black;
+    border-radius: 20px;
+    position: absolute;
+    z-index: 2;
+    padding: 0 15px;
+    margin-left: 200px;
+    opacity: 0;
+    top: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: opacity 0.15s ease-in, top 0.15s ease-in, width 0.15s ease-in;
+  }
+  input {
+    // height: 100%;
+    // width: 100%;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    position: absolute;
+    z-index: 5;
+    opacity: 0;
+    &:checked {
+      ~ .btn {
+        animation: plus-animation 0.5s ease-out forwards;
+      }
+      ~ .tooltip {
+        width: 250px;
+        height: 110px;
+        animation: stretch-animation 1s ease-out forwards 0.15s;
+        top: -130px;
+        opacity: 1;
+      }
+    }
+  }
+}

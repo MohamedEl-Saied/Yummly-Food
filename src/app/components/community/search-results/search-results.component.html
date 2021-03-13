@@ -1,0 +1,145 @@
+<app-header></app-header>
+<ngx-spinner type="none">
+    <div class="pan-loader">
+        <div class="loader"></div>
+        <div class="pan-container">
+            <div class="pan"></div>
+            <div class="handle"></div>
+        </div>
+    </div>
+</ngx-spinner>
+<div class="main-container pt-5 {{ isDark ? 'dark' : '' }}" *ngIf="user">
+    <div class="show-posts__container row">
+        <div class="user ">
+            <div class="user__image">
+                <img [src]="sanitizeImageUrl(user.imageURL)" alt="">
+            </div>
+            <div class="user__info">
+                <h3> {{user.username}}
+                </h3>
+                <hr>
+
+                <h5> {{user.email}}
+                </h5>
+
+                <hr>
+                <div class="user-stats">
+
+                    <h6 data-tooltip="Posts" data-position="top left" data-variation="wide">
+                        <i class="fas fa-newspaper "></i>
+                        <span>{{user.posts.length}}</span>
+                    </h6>
+                    <h6 data-tooltip="Comments" data-position="top left" data-variation="wide"><i class="fas fa-comment"></i> <span>{{user.comments.length}}</span>
+                    </h6>
+                    <h6 data-tooltip="Favorite Posts" data-position="top right" data-variation="wide"><i class="fas fa-star"></i>
+                        <span>{{user.favoritePosts.length}}</span>
+                    </h6>
+                    <h6 data-tooltip="Favorite Recipies" data-position="top left" data-variation="wide">
+                        <i class="fas fa-hamburger"></i>
+                        <span>{{user.favoriteRecipes.length}}</span>
+                    </h6>
+                </div>
+                <hr>
+
+                <div class="links-container">
+                    <a class="ui inverted primary button" routerLink="/community/profile/{{userID}}">View Profile
+                    </a>
+                    <a class="ui inverted red button" routerLink="/community/favourites-posts">Favorite Posts</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="posts col-md-5">
+            <flash-messages></flash-messages>
+            <div class="radi-group-container row">
+                <div class="inputGroup col-md-3">
+                    <input id="radio4" name="radio" type="radio" value="all" (change)="filterSearch($event.target.value)" />
+                    <label for="radio4">All</label>
+                </div>
+                <div class="inputGroup col-md-3">
+                    <input id="radio1" name="radio" type="radio" value="users" (change)="filterSearch($event.target.value)" />
+                    <label for="radio1">Users</label>
+                </div>
+                <div class="inputGroup col-md-3">
+                    <input id="radio2" name="radio" type="radio" value="posts" (change)="filterSearch($event.target.value)" />
+                    <label for="radio2">Posts</label>
+                </div>
+                <div class="inputGroup col-md-3">
+                    <input id="radio3" name="radio" type="radio" value="comments" (change)="filterSearch($event.target.value)" />
+                    <label for="radio3">Comments</label>
+                </div>
+            </div>
+            <ng-container *ngIf="users&&flaguser">
+
+                <h3>Users</h3>
+                <div class="posts__show mb-4" *ngFor="let user of users;let currentIndex=index">
+                    <div class="author">
+
+                        <img [src]="sanitizeImageUrl(user.imageURL)" alt="">
+
+                        <div class="author__area">
+
+                            <div class="author__info">
+                                <h2>{{user.username}}</h2>
+                                <h5>Number of posts is {{ user.posts.length }}</h5>
+                            </div>
+                            <div class="post__action" (click)="showUser(user._id)">
+                                <i class="fas fa-angle-right"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr>
+                </div>
+                <hr>
+            </ng-container>
+            <ng-container *ngIf="posts&&flagpost">
+                <h3>Posts</h3>
+                <div class="posts__show mb-4" *ngFor="let post of posts;let currentIndex=index">
+                    <div class="author">
+
+                        <img [src]="sanitizeImageUrl(post.author.imageURL)" alt="">
+
+                        <div class="author__area">
+
+                            <div class="author__info">
+                                <h2>{{post.author.username}}</h2>
+                                <h5>{{post.title}}</h5>
+                            </div>
+                            <div class="post__action" routerLink="/community/get-post/{{post._id}}">
+                                <i class="fas fa-angle-right"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr>
+                </div>
+                <hr>
+            </ng-container>
+            <ng-container *ngIf="comments&&flagcomment">
+                <h3>Comments</h3>
+                <div class="posts__show mb-4" *ngFor="let comment of comments;let currentIndex=index">
+                    <div class="author">
+
+                        <img [src]="sanitizeImageUrl(comment.author.imageURL)" alt="">
+
+                        <div class="author__area">
+
+                            <div class="author__info">
+                                <h2>{{comment.author.username}}</h2>
+                                <h5>{{comment.comment}}</h5>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr>
+                </div>
+                <hr>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<app-footer *ngIf="showFooter"></app-footer>

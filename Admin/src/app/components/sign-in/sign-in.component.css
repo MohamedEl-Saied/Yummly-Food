@@ -1,0 +1,25 @@
+.form__conatiner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10% auto;
+    height: 50vh;
+    width: 70%;
+    border: 1px solid black;
+    border-radius: 1rem;
+}
+
+.color-white {
+    color: black;
+}
+
+.submit {
+    display: block;
+    width: 40%;
+    transition: all 0.4s;
+}
+
+.submit:hover {
+    background-color: #18588d;
+    color: white;
+}

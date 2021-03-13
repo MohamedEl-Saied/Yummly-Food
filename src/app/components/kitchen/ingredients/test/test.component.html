@@ -1,0 +1,120 @@
+<app-header></app-header>
+
+<!-- <section class="ingredients__container">
+
+    <div class="ingredient__info">
+        <div class="image__container">
+            <img src="https://filedn.com/ltOdFv1aqz1YIFhf4gTY8D7/ingus-info/BLOGS/Photography-stocks3/stock-photography-slider.jpg" alt="">
+        </div>
+        <div class="ingredient__details">
+            <h3 class="ingredient__details--name">Apple</h3>
+            <div class="ingredient__details--content">
+                <div class="stats">
+                    <h2>1.2g</h2>
+                    <h5>Carbohydrates</h5>
+                </div>
+                <div class="stats">
+                    <h2>1.2g</h2>
+                    <h5>Vitamine</h5>
+                </div>
+
+                <div class="stats">
+                    <h2>1.2g</h2>
+                    <h5>Vitamine</h5>
+                </div>
+            </div>
+            <button (click)="isReadMoreClicked=true">More ?</button>
+            <!--  <button (click)="isReadMoreClicked=true">More ?</button> 
+            <div class="popup {{ isReadMoreClicked ?  'show' : ''}}">
+                <div>
+                    <div class="popup__content">
+                        <div class="image__container">
+                            <img src="https://filedn.com/ltOdFv1aqz1YIFhf4gTY8D7/ingus-info/BLOGS/Photography-stocks3/stock-photography-slider.jpg" alt="">
+                        </div>
+                        <div class="ingredient__details">
+                            <h3 class="ingredient__details--name">Apple</h3>
+                            <div class="ingredient__details--content">
+                                <div class="stats">
+                                    <h2>1.2g</h2>
+                                    <h5>Carbohydrates</h5>
+                                </div>
+                                <div class="stats">
+                                    <h2>1.2g</h2>
+                                    <h5>Vitamine</h5>
+                                </div>
+
+                                <div class="stats">
+                                    <h2>1.2g</h2>
+                                    <h5>Vitamine</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="close" (click)="isReadMoreClicked=false"> X </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section> -->
+
+<section class="ingredients__container">
+
+
+    <div class="ft-recipe">
+        <div class="ft-recipe__thumb">
+            <img src="https://zippypaws.com/app/uploads/2018/05/strawberry-waffles-1024x668.jpg" alt="Strawberry Waffle" />
+        </div>
+        <div class="ft-recipe__content">
+            <header class="content__header">
+                <div class="row-wrapper">
+                    <h2 class="recipe-title">Strawberry Waffle</h2>
+                    <div class="user-rating"></div>
+                </div>
+                <ul class="recipe-details">
+                    <li class="recipe-details-item ">
+                        <i class="fas fa-check"></i>
+                        <span class="value">20</span>
+                        <span class="title">Carbohydrates</span>
+                    </li>
+                    <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">5</span><span class="title">Saturated Fat</span></li>
+                    <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">4-6</span><span class="title">Serving</span></li>
+                    <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">5</span><span class="title">Net Carbohydrates</span></li>
+                </ul>
+            </header>
+
+            <footer class="content__footer">
+                <a (click)="isReadMoreClicked=true">More Details</a>
+            </footer>
+            <div class="popup {{ isReadMoreClicked ?  'show' : ''}}">
+
+                <div class="popup__content">
+                    <div class="image__container">
+                        <img src="https://zippypaws.com/app/uploads/2018/05/strawberry-waffles-1024x668.jpg" alt="">
+                    </div>
+                    <div class="ingredient__details">
+                        <h3>Apple</h3>
+                        <ul class="recipe-details">
+                            <li class="recipe-details-item ">
+                                <i class="fas fa-check"></i>
+                                <span class="value">20</span>
+                                <span class="title">Carbohydrates</span>
+                            </li>
+                            <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">5</span><span class="title">Saturated Fat</span></li>
+                            <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">4-6</span><span class="title">Serving</span></li>
+                            <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">5</span><span class="title">Net Carbohydrates</span></li>
+                        </ul>
+                    </div>
+
+                    <button class="close" (click)="isReadMoreClicked=false"> X </button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>

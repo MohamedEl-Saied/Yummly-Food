@@ -1,0 +1,15 @@
+<app-header></app-header>
+<app-chatbot></app-chatbot>
+
+<section style="margin-top: 5rem;" class="timeline">
+    <ul>
+        <li *ngFor="let nutrients of ingredientDetails.nutrition.nutrients">
+            <div>
+                <div class="discovery">
+                    <h1>{{nutrients.name}}</h1>
+                    <h3>{{nutrients.amount}}</h3>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>

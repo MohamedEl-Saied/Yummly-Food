@@ -1,0 +1,36 @@
+<app-header></app-header>
+<app-chatbot></app-chatbot>
+<div class="home__container">
+    <section id="home" class="slider">
+        <div class="item item-first">
+            <div class="caption">
+                <div class="container">
+                    <div>
+                        <p>Search for ingredient</p>
+                        <div class="wrapper">
+                            <input type="checkbox" />
+                            <div class="btn"><i class="fas fa-info"></i></div>
+                            <div class="tooltip">
+                                <span>Here you can search for a specific ingredient</span>
+                            </div>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="input-icons">
+                            <input #searchname class="input-field" type="text" placeholder="Search for ingredient">
+                        </div>
+                        <div class="sub-container">
+                            <div class="button-container">
+                                <a class="btn btn-1" (click)="onSubmit(searchname.value) ">
+                                    <svg>
+                                        <rect x="0" y="0" fill="none" width="100%" height="100%" />
+                                    </svg> Search
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+	<app-footer></app-footer>

@@ -1,0 +1,210 @@
+<div class="row" *ngIf="!isResponseDone">
+    <div class="col-lg-12">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>
+<div class="main-content" *ngIf="(isResponseDone && !isViewDetials)">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Edit Post</h4>
+                        <p class="card-category">Edit post details</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Title" value="{{post.title}}" #titleInput>
+                                    </mat-form-field>
+                                </div>
+
+
+
+                                <div class="col-md-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <textarea matInput rows="5" placeholder="Conent" value="{{post.content}}" #contentInput></textarea>
+
+                                    </mat-form-field>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <h3>Post image</h3>
+                                <img class="card-img-top" [src]="sanitizeImageUrl(post.imageURL)" alt="post image">
+
+                            </div>
+                            <hr>
+                            <div class="col-md-6">
+
+                                <input type="file" name="image" (change)="onFileChanged($event)">
+
+                            </div>
+
+
+
+
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="updatePost(titleInput.value,contentInput.value)">Update
+                                Post</button>
+                            <button mat-raised-button type="submit" class="btn btn-warning pull-right" routerLink="/dashboard/users-table">Cancle
+                                Editig</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="javascript:void(0)">
+                            <img class="img" [src]="sanitizeImageUrl(post.author.imageURL)" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">{{post.author.username}}</h6>
+                        <h4 class="card-title">{{post.author.email}}</h4>
+                        <h3>Posts : <span class="text-warning"> {{post.author.posts.length}}</span> </h3>
+                        <h3>Comments : <span class="text-warning"> {{post.author.comments.length}}</span> </h3>
+                        <h3>Favorite Posts : <span class="text-warning"> {{post.author.favoritePosts.length}}</span>
+                        </h3>
+                        <div class="mt-5">
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" routerLink="/dashboard/user/{{post.author._id}}">Edit User</button>
+                            <button mat-raised-button type="submit" class="btn btn-warning pull-left" routerLink="/dashboard/user/{{post.author._id}}/details"> View User
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-content" *ngIf="(isResponseDone && isViewDetials)">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title"> {{post.title}} </h4>
+                        <p class="card-category">Post details</p>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="card mb-3">
+                                    <img class="card-img-top" [src]="sanitizeImageUrl(post.imageURL)" alt="post image">
+                                    <div class="card-body">
+                                        <h3 class="card-title">{{post.title}}</h3>
+                                        <p class="card-text">{{post.content}}
+                                        </p>
+                                        <!-- updatedAt -->
+                                        <p class="card-text"><small class="text-muted">Created At {{
+                                                stringAsDate(post.createdAt) | date:'dd/MM/yy' }}
+                                            </small></p>
+                                        <p class="card-text"><small class="text-muted">Last updated {{
+                                                stringAsDate(post.updatedAt) | date:'dd/MM/yy' }}
+                                            </small></p>
+                                        <button mat-raised-button type="submit" class="btn btn-warning pull-right" routerLink="/dashboard/post/{{post._id}}">Edit
+                                            Post</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                        <!-- <button mat-raised-button type="submit" class="btn btn-warning pull-right" routerLink="/dashboard/users-table">Back to table
+                                </button> -->
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="javascript:void(0)">
+                            <img class="img" [src]="sanitizeImageUrl(post.author.imageURL)" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">{{post.author.username}}</h6>
+                        <h4 class="card-title">{{post.author.email}}</h4>
+                        <h4>Posts : <span class="text-warning"> {{post.author.posts.length}}</span> </h4>
+                        <h4>Comments : <span class="text-warning"> {{post.author.comments.length}}</span> </h4>
+                        <h4>Favorite Posts : <span class="text-warning"> {{post.author.favoritePosts.length}}</span>
+                        </h4>
+                        <div class="mt-3">
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" routerLink="/dashboard/user/{{post.author._id}}">Edit
+                                User</button>
+                            <button mat-raised-button type="submit" class="btn btn-warning pull-left" routerLink="/dashboard/users-table">User table</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title"> {{ post.title }} Comments </h4>
+                        <p class="card-category">All comments for this post</p>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row" *ngFor="let comment of post.comments">
+
+                            <div class="col-md-12">
+                                <div class="card mb-3">
+
+                                    <mat-card>
+                                        <mat-card-header>
+
+                                            <mat-card-title>{{comment.author.username}}</mat-card-title>
+                                            <mat-card-subtitle>
+                                                {{ stringAsDate(comment.createdAt) | date:'dd/MM/yy' }} {{ stringAsDate(comment.createdAt) | date:'hh:mm' }}
+                                            </mat-card-subtitle>
+
+                                        </mat-card-header>
+
+                                        <mat-card-content class="mt-3">
+
+                                            {{comment.comment}}
+
+                                        </mat-card-content>
+                                        <button mat-raised-button type="submit" class="btn btn-warning pull-right" routerLink="/dashboard/comment/{{comment._id}}">Edit
+                                            Comment</button>
+
+                                    </mat-card>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <!-- <button mat-raised-button type="submit" class="btn btn-warning pull-right" routerLink="/dashboard/users-table">Back to table
+                                </button> -->
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

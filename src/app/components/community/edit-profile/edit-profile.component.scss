@@ -1,0 +1,263 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap");
+.main-container {
+  min-height: 100vh;
+  width: 100%;
+}
+main {
+  min-height: 100vh;
+  padding: 2rem 0;
+
+  section {
+    margin: 0 auto;
+    width: 70%;
+    // border: 2px solid white;
+    .title {
+      margin-top: 2rem;
+      letter-spacing: 3px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .profile-pic {
+      width: 20rem;
+      max-width: 20rem;
+      margin: 3rem 2rem;
+      padding: 2rem;
+      display: flex;
+      flex-flow: wrap column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1rem;
+      background-color: #18191a;
+      box-shadow: 1px 1px 20px rgb(0, 0, 0);
+      color: white;
+      .pic-label {
+        width: 100%;
+        margin: 0 0 1rem 0;
+        text-align: center;
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+      .pic {
+        width: 16rem;
+        height: 16rem;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        img {
+          transition: all 0.4s;
+          &:hover {
+            filter: brightness(50%);
+            transform: scale(1.1);
+          }
+        }
+        .lx-btn {
+          opacity: 0;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          position: absolute;
+          transform: translate(-50%, -50%);
+          top: 50%;
+          left: 50%;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          text-transform: none;
+          font-size: 1rem;
+          color: white;
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+        &:focus,
+        &:focus-within,
+        &:hover {
+          .lx-btn {
+            opacity: 1;
+            display: flex;
+          }
+        }
+      }
+      .pic-info {
+        width: 100%;
+        margin: 2rem 0 0 0;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+    }
+    form {
+      display: inline-block;
+      width: 60%;
+      min-width: 15rem;
+      max-width: 25rem;
+      margin: 3rem 0 0 0;
+      .fieldset {
+        width: 100%;
+        margin: 2rem 0;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        label {
+          width: 100%;
+          margin: 0 0 1rem 0;
+          font-size: 1.2rem;
+          font-weight: 700;
+        }
+        .input-wrapper {
+          width: 100%;
+          display: flex;
+          flex-flow: nowrap;
+          align-items: stretch;
+          justify-content: center;
+          transition: all 0.5s;
+          .icon {
+            width: fit-content;
+            margin: 0;
+            padding: 0.375rem 0.75rem;
+            display: flex;
+            align-items: center;
+            border-top-left-radius: 0.25em;
+            border-bottom-left-radius: 0.25em;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border: 0.0625rem solid #ced4da;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            text-align: center;
+            background-color: #e9ecef;
+          }
+          input,
+          select {
+            outline: none;
+            flex-grow: 1;
+            min-height: 3rem;
+            padding: 0.375rem 0.75rem;
+            display: block;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 0.25em;
+            border-bottom-right-radius: 0.25em;
+            border: 0.0625rem solid #ced4da;
+            border-left: 0;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+          }
+          &:focus,
+          &:focus-within {
+            transform: scaleX(1.1);
+          }
+          &:focus,
+          &:focus-within,
+          &:hover {
+            .icon {
+              color: #538e46;
+            }
+          }
+        }
+        &:first-child {
+          margin-top: 0;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      .actions {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        a {
+          text-decoration: none;
+        }
+        .lx-btn {
+          padding: 0.5rem 1rem;
+          border-radius: 0.4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          color: white;
+          cursor: pointer;
+          transition: all 0.5s;
+          &#cancel,
+          &.cancel {
+            background-color: #ff5555;
+            &:hover {
+              background-color: #991a1a;
+            }
+          }
+          &#clear,
+          &.clear {
+            color: black;
+            background-color: white;
+            &:hover {
+              background-color: #6d6d6d;
+            }
+          }
+          &#save,
+          &.save {
+            background-color: #538e46;
+            &:hover {
+              background-color: #2c5823;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 64rem) {
+  main {
+    section {
+      .profile-pic {
+        max-width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 56.25rem) {
+  main {
+    section {
+      form {
+        max-width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.flex__container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#file {
+  outline: none;
+}
+.dark {
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url() !important;
+  label,
+  .title {
+    color: white;
+  }
+}

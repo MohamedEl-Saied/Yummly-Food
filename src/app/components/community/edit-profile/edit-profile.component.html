@@ -1,0 +1,108 @@
+<app-header></app-header>
+
+<div class="pt-5 main-container {{ isDark ? 'dark' : '' }}">
+    <ngx-spinner type="none">
+        <div class="pan-loader">
+            <div class="loader"></div>
+            <div class="pan-container">
+                <div class="pan"></div>
+                <div class="handle"></div>
+            </div>
+        </div>
+    </ngx-spinner>
+    <main class="has-dflex-center mt-5" *ngIf="user">
+        <section>
+            <flash-messages></flash-messages>
+            <div class="lx-container-70">
+                <div class="lx-row">
+                    <h1 class="title">Edit your profile</h1>
+                </div>
+
+
+                <div class="flex__container">
+                    <div class="profile-pic">
+                        <h1 class="pic-label">Profile picture</h1>
+                        <div class="pic bs-md" *ngIf="user">
+                            <img [src]="sanitizeImageUrl(user.imageURL)" alt="" width="4024">
+                        </div>
+                        <div class="pic-info">
+                            <label for="file">Upload your photo now </label>
+                            <input type="file" name="image" (change)="onFileChanged($event)" type="file" id="file">
+                        </div>
+                    </div>
+
+
+
+                    <form [formGroup]="form" onsubmit="return false;" #editForm *ngIf="user">
+                        <div class="fieldset">
+                            <label for="user-name">Username</label>
+                            <div class="input-wrapper">
+                                <span class="icon"><i class="fas fa-user"></i></span>
+                                <input formControlName="UsernameValid" type="text" id="user-name" value="{{user.username}}" #usernameInput>
+                            </div>
+                            <div *ngIf="form.controls['UsernameValid'].invalid && (form.controls['UsernameValid'].dirty || form.controls['UsernameValid'].touched)" class="alert alert-danger">
+                                <div *ngIf="form.controls['UsernameValid'].errors.required">Username is required.
+                                </div>
+                                <div *ngIf="form.controls['UsernameValid'].errors.minlength">Username must be 6
+                                </div>
+                            </div>
+                            <div id="user-name-helper" class="helper">
+
+                            </div>
+                        </div>
+
+                        <div class="fieldset">
+                            <label for="email">E-mail</label>
+                            <div class="input-wrapper">
+                                <span class="icon"><i class="fas fa-envelope"></i></span>
+                                <input type="email" id="email" value="{{user.email}}" #emailInput formControlName="emailValid">
+                            </div>
+                            <div id="email-helper" class="helper"></div>
+                            <div *ngIf="form.controls['emailValid'].invalid && (form.controls['emailValid'].dirty || form.controls['emailValid'].touched)" class="alert alert-danger">
+                                <div *ngIf="form.controls['emailValid'].errors.required">Email is required</div>
+                                <div *ngIf="form.controls['emailValid'].errors.email">Email must be a valid email address
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fieldset">
+                            <label for="pass">Password</label>
+                            <div class="input-wrapper">
+                                <span class="icon"><i class="fas fa-key"></i></span>
+                                <input type="password" id="pass" placeholder="Enter your password" #passwordInput formControlName="password">
+                            </div>
+                            <div id="pass-helper" class="helper"></div>
+                            <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)" class="alert alert-danger">
+                                <div *ngIf="form.controls['password'].errors.required">Password is required</div>
+                                <div *ngIf="form.controls['password'].errors.minlength">Password must be 6</div>
+                            </div>
+                        </div>
+                        <div class="fieldset">
+                            <label for="user-id">Confirmed Password</label>
+                            <div class="input-wrapper">
+                                <span class="icon"><i class="fas fa-key"></i></span>
+                                <input type="password" placeholder="Confirm your password" #confirmedPasswordInput formControlName="confirmPassword">
+                            </div>
+                            <div id="user-id-helper" class="helper"></div>
+                            <div *ngIf="form.controls['confirmPassword'].invalid && (form.controls['confirmPassword'].dirty || form.controls['confirmPassword'].touched)" class="alert alert-danger">
+                                <div *ngIf="form.controls['confirmPassword'].errors.required">Confirm Password is required
+                                </div>
+                                <div *ngIf="form.controls['confirmPassword'].errors.mustMatch">Passwords must match
+                                </div>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <a id="cancel" class="lx-btn" (click)="cancleEditing()"><i
+                                    class="fas fa-ban"></i>&nbsp;&nbsp;Cancel</a>
+                            <a (click)="clearForm(editForm)" id="clear" class="lx-btn"><i
+                                    class="fas fa-broom"></i>&nbsp;&nbsp;Clean</a>
+                            <a (click)="updateUser(usernameInput.value,emailInput.value,passwordInput.value,confirmedPasswordInput.value)" id="save" class="lx-btn"><i class="fas fa-save"></i>&nbsp;&nbsp;Save</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+    </main>
+    <app-footer *ngIf="showFooter"></app-footer>
+</div>

@@ -1,0 +1,53 @@
+<app-header></app-header>
+<app-chatbot></app-chatbot>
+<div class="parts {{ isDark ? 'dark' : '' }}">
+
+    <ngx-spinner type="none">
+        <div class="pan-loader">
+            <div class="loader"></div>
+            <div class="pan-container">
+                <div class="pan"></div>
+                <div class="handle"></div>
+            </div>
+        </div>
+    </ngx-spinner>
+
+    <div class="row recipe-container">
+
+        <div class="action-container ">
+            <a (click)="back()" class="previous round">
+                <i class="fas fa-long-arrow-alt-left" style="color:#f98169"></i></a>
+            <a (click)="refresh()" class="previous round">
+                <i class="fas fa-redo" style="color:#f98169"></i> Get another plan today</a>
+        </div>
+        <div class="header__contianer">
+            <h3 class="header--title">Your Plan Today
+                <hr>
+            </h3>
+        </div>
+
+        <div>
+
+        </div>
+        <div class="col-md-4 recipes mt-5" *ngFor="let recipe of planRecipesDetails">
+            <div class="food-item">
+                <h2>{{ recipe.dishTypes[0] }}
+                </h2>
+                <img src="{{ recipe.image }}" alt="">
+                <div class="price"><i class="ion fa fa-user-friends"></i>{{ recipe.servings }}
+                </div>
+                <div class="text-content">
+                    <h4>{{ recipe.title }}</h4>
+                    <i class="ion fa fa-clock"></i><span class="value">{{ recipe.readyInMinutes
+                        }}</span><span class="title"> Minutes</span>
+                    <footer class="content__footer">
+                        <a routerLink="/kitchen/recipes/recipe-details/{{
+            recipe.id
+          }}/information">View Recipe</a>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

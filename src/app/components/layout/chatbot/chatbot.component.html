@@ -1,0 +1,24 @@
+<div class="floating-chat">
+    <i class="fa fa-comments" aria-hidden="true"></i>
+    <div class="chat">
+        <div class="header">
+            <span class="title">
+                What's On Your Mind?
+            </span>
+            <button>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+        <ul class="messages">
+            <li class="self">Hello Freind I'm ChatBot</li>
+            <li *ngIf="flag == true" class="self">{{answer}}</li>
+        </ul>
+        <div class="footer">
+            <div class="ingredients-list self">
+                <div *ngFor="let item of chatBotQue">
+                    <button #buttonClick class="chip" (click)="getQue(item)">{{item}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

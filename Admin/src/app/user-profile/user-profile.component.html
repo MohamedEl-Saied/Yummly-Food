@@ -1,0 +1,228 @@
+<div class="row" *ngIf="!isResponseDone">
+    <div class="col-lg-12">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>
+<div class="main-content" *ngIf="(isResponseDone && !isViewDetials)">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Edit Profile</h4>
+                        <p class="card-category">Edit user profile</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Username" value="{{user.username}}" #usernameInput>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Email address" type="email" value="{{user.email}}" #emaiInput>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <input type="file" name="image" (change)="onFileChanged($event)">
+
+                                </div>
+                            </div>
+
+
+
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="updateUser(usernameInput.value,emaiInput.value)">Update
+                                Profile</button>
+                            <button mat-raised-button type="submit" class="btn btn-warning pull-right" routerLink="/dashboard/users-table">Cancle
+                                Editig</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="javascript:void(0)">
+                            <img class="img" [src]="sanitizeImageUrl(user.imageURL)" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">{{user.username}}</h6>
+                        <h4 class="card-title">{{user.email}}</h4>
+                        <h3>Posts : <span class="text-warning"> {{user.posts.length}}</span> </h3>
+                        <h3>Comments : <span class="text-warning"> {{user.comments.length}}</span> </h3>
+                        <h3>Favorite Posts : <span class="text-warning"> {{user.favoritePosts.length}}</span> </h3>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-content" *ngIf="(isResponseDone && isViewDetials)">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title"> {{user.username}} Posts </h4>
+                        <p class="card-category">All posts from this user</p>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row" *ngFor="let post of user.posts">
+
+                            <div class="col-md-12">
+                                <div class="card mb-3">
+                                    <img class="card-img-top" [src]="sanitizeImageUrl(post.imageURL)" alt="post image">
+                                    <div class="card-body">
+                                        <h3 class="card-title">{{post.title}}</h3>
+                                        <p class="card-text">{{post.content}}
+                                        </p>
+                                        <!-- updatedAt -->
+                                        <p class="card-text"><small class="text-muted">Created At {{
+                                                stringAsDate(post.createdAt) | date:'dd/MM/yy' }}
+                                            </small></p>
+                                        <p class="card-text"><small class="text-muted">Last updated {{
+                                                stringAsDate(post.updatedAt) | date:'dd/MM/yy' }}
+                                            </small></p>
+                                        <button mat-raised-button type="submit" class="btn btn-warning pull-right" routerLink="/dashboard/post/{{post._id}}">Update </button>
+                                        <button mat-raised-button type="submit" class="btn btn-warning pull-right" routerLink="/dashboard/post/{{post._id}}/details">view More</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                        <!-- <button mat-raised-button type="submit" class="btn btn-warning pull-right" routerLink="/dashboard/users-table">Back to table
+                                </button> -->
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="javascript:void(0)">
+                            <img class="img" [src]="sanitizeImageUrl(user.imageURL)" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">{{user.username}}</h6>
+                        <h4 class="card-title">{{user.email}}</h4>
+                        <h4>Posts : <span class="text-warning"> {{user.posts.length}}</span> </h4>
+                        <h4>Comments : <span class="text-warning"> {{user.comments.length}}</span> </h4>
+                        <h4>Favorite Posts : <span class="text-warning"> {{user.favoritePosts.length}}</span> </h4>
+                        <div class="mt-3">
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" routerLink="/dashboard/user/{{user._id}}">Edit
+                                User</button>
+                            <button mat-raised-button type="submit" class="btn btn-warning pull-left" routerLink="/dashboard/users-table">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title"> {{user.username}} Comments </h4>
+                        <p class="card-category">All comments from this user</p>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row" *ngFor="let comment of user.comments">
+
+                            <div class="col-md-12">
+                                <div class="card mb-3">
+
+                                    <div class="card-body">
+                                        <p class="card-text">{{comment.comment}}
+                                        </p>
+                                        <!-- updatedAt -->
+                                        <p class="card-text"><small class="text-muted">Created At {{
+                                                stringAsDate(comment.createdAt) | date:'dd/MM/yy' }}
+                                            </small></p>
+                                        <p class="card-text"><small class="text-muted">Last updated {{
+                                                stringAsDate(comment.updatedAt) | date:'dd/MM/yy' }}
+                                            </small></p>
+                                        <button mat-raised-button type="submit" class="btn btn-success pull-right" routerLink="/dashboard/comment/{{comment._id}}">Update </button>
+                                        <button mat-raised-button type="submit" class="btn btn-success pull-right" routerLink="/dashboard/comment/{{comment._id}}/details">view More</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                        <!-- <button mat-raised-button type="submit" class="btn btn-warning pull-right" routerLink="/dashboard/users-table">Back to table
+                                </button> -->
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title"> {{user.username}} favorite posts </h4>
+                        <p class="card-category">All favorite posts from this user</p>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row" *ngFor="let favoritePost of user.favoritePosts">
+
+                            <div class="col-md-12">
+                                <div class="card mb-3">
+                                    <img class="card-img-top" [src]="sanitizeImageUrl(favoritePost.imageURL)" alt="post image">
+                                    <div class="card-body">
+                                        <h3 class="card-title">{{favoritePost.title}}</h3>
+                                        <p class="card-text">{{favoritePost.content}}
+                                        </p>
+                                        <!-- updatedAt -->
+                                        <p class="card-text"><small class="text-muted">Created At {{
+                                                stringAsDate(favoritePost.createdAt) | date:'dd/MM/yy' }}
+                                            </small></p>
+                                        <p class="card-text"><small class="text-muted">Last updated {{
+                                                stringAsDate(favoritePost.updatedAt) | date:'dd/MM/yy' }}
+                                            </small></p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                        <!-- <button mat-raised-button type="submit" class="btn btn-warning pull-right" routerLink="/dashboard/users-table">Back to table
+                                </button> -->
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="row" *ngIf="!isResponsDone">
+    <div class="col-lg-12">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>
+<div class="main-content" *ngIf="isResponsDone">
+    <div class="container-fluid">
+        <div class="row">
+            <mat-form-field class="example-full-width offset-3 col-md-6">
+                <mat-label>Search</mat-label>
+                <input matInput placeholder="Search for message" (change)="search($event)">
+                <i class="material-icons search-icon ">search</i>
+            </mat-form-field>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title ">Users Table</h4>
+                        <p class="card-category"> All users stats</p>
+                    </div>
+                    <div class="card-body ">
+                        <div class="table-responsive ">
+                            <table class="table table-hover">
+                                <thead class=" text-warning">
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Username
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        #Posts
+                                    </th>
+                                    <th>
+                                        #Comments
+                                    </th>
+                                    <th>
+                                        #Favorite posts
+                                    </th>
+                                    <!-- <th>
+                                        #Favorite Recipes
+                                    </th> -->
+                                    <th>
+                                        Created AT | Day
+                                    </th>
+                                    <th>
+                                        Block
+                                    </th>
+                                    <th>
+                                        Actions
+                                    </th>
+                                </thead>
+                                <tbody class="text-black" *ngFor="let user of users;let currentIndex = index">
+                                    <tr class="{{ user.isBlocked==true ? 'block-theme' : '' }} ">
+                                        <td>
+                                            {{currentIndex+1}}
+                                        </td>
+                                        <td>
+                                            {{user.username}}
+                                        </td>
+                                        <td>
+                                            {{user.email}}
+                                        </td>
+                                        <td>
+                                            {{user.posts.length}}
+                                        </td>
+                                        <td>
+                                            {{user.comments.length}}
+                                        </td>
+                                        <td>
+                                            {{user.favoritePosts.length}}
+                                        </td>
+                                        <td>{{ stringAsDate(user.createdAt) | date:'dd/MM/yy' }}
+                                        </td>
+                                        <td>
+                                            <!-- <input type="checkbox" class="example-margin" (change)="blockUser(user._id,currentIndex,$event.target.checked)"> -->
+                                            <ng-container *ngIf="!user.isBlocked">
+                                                <i class="material-icons block " (click)="blockUser(true,user._id,currentIndex)">lock</i>
+                                            </ng-container>
+                                            <ng-container *ngIf="user.isBlocked">
+                                                <i (click)="blockUser(false,user._id,currentIndex)" class="material-icons block ">lock_open</i>
+                                            </ng-container>
+
+
+                                        </td>
+                                        <td>
+                                            <i class="material-icons" routerLink="/dashboard/user/{{user._id}}/details">remove_red_eye</i>
+                                            <i routerLink="/dashboard/user/{{ user._id }}" class="material-icons">mode</i>
+                                            <i (click)="deleteUser(user._id,user.username,currentIndex)" class="material-icons">delete</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

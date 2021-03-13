@@ -1,0 +1,149 @@
+<app-header></app-header>
+<app-chatbot></app-chatbot>
+<ngx-spinner type="none">
+    <div class="pan-loader">
+        <div class="loader"></div>
+        <div class="pan-container">
+            <div class="pan"></div>
+            <div class="handle"></div>
+        </div>
+    </div>
+</ngx-spinner>
+
+<div class="cont_principal {{ isDark ? 'dark' : '' }}">
+    <section id="home" class="slider">
+        <div class="item item-first">
+            <div class="caption">
+                <div class="container">
+                    <div>
+                        <p>Search for ingredient</p>
+                        <div class="wrapper">
+                            <input type="checkbox" />
+                            <div class="btn"><i class="fas fa-info"></i></div>
+                            <div class="tooltip">
+                                <span>Here you can find all nutrients for each ingredient</span>
+                            </div>
+                        </div>
+                    </div>
+                    <form onSubmit="return false; ">
+                        <div class="input-icons">
+                            <input #ingredientname class="input-field" type="text" placeholder="Search for ingredient" />
+                        </div>
+                        <div class="sub-container">
+                            <div class="button-container">
+                                <button class="btn btn-1" (click)="onSubmit(ingredientname.value)">
+                                    <svg>
+                                        <rect x="0 " y="0 " fill="none " width="100% " height="100% " />
+                                    </svg>
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <div class="cont_central">
+        <div class="ingredient-container" *ngFor="let ingredient of ingredientDetails; let currentIndex = index">
+            <div class="cont_modal {{c==currentIndex? 'cont_modal_active' : ''}}">
+                <div class="cont_photo">
+                    <div class="cont_img_back">
+                        <img src="https://spoonacular.com/cdn/ingredients_500x500/{{ingredient.image}}" alt="" />
+                    </div>
+
+                    <div class="cont_detalles">
+                        <h3 style="text-transform: capitalize;">{{ingredient.name}}</h3>
+                    </div>
+                </div>
+                <div class="cont_text_ingredients">
+                    <div class="cont_over_hidden">
+
+                        <div class="cont_tabs">
+                            <ul>
+                                <li>
+                                    <a>
+                                        <h4>NUTRIENTS</h4>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="cont_text_det_preparation">
+                            <div>
+                                <div class="sub_mins" *ngFor="let nutrients of ingredient.nutrition.nutrients">
+                                    <h3>{{nutrients.amount}}</h3>
+                                    <span>{{nutrients.name}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="cont_btn_open_dets">
+                        <button (click)="open_close(currentIndex)"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <section class="ingredients__container">
+
+
+        <div class="ft-recipe mb-5">
+            <div class="ft-recipe__thumb">
+                <img src="https://zippypaws.com/app/uploads/2018/05/strawberry-waffles-1024x668.jpg" alt="Strawberry Waffle" />
+            </div>
+            <div class="ft-recipe__content">
+                <header class="content__header">
+                    <div class="row-wrapper">
+                        <h2 class="recipe-title">Strawberry Waffle</h2>
+                        <div class="user-rating"></div>
+                    </div>
+                    <ul class="recipe-details">
+                        <li class="recipe-details-item ">
+                            <i class="fas fa-check"></i>
+                            <span class="value">20</span>
+                            <span class="title">Carbohydrates</span>
+                        </li>
+                        <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">5</span><span class="title">Saturated Fat</span></li>
+                        <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">4-6</span><span class="title">Serving</span></li>
+                        <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">5</span><span class="title">Net Carbohydrates</span></li>
+                    </ul>
+                </header>
+
+                <footer class="content__footer">
+                    <a (click)="isReadMoreClicked=true">More Details</a>
+                </footer>
+                <div class="popup {{ isReadMoreClicked ?  'show' : ''}}">
+
+                    <div class="popup__content">
+                        <div class="image__container">
+                            <img src="https://zippypaws.com/app/uploads/2018/05/strawberry-waffles-1024x668.jpg" alt="">
+                        </div>
+                        <div class="ingredient__details">
+                            <h3>Apple</h3>
+                            <ul class="recipe-details">
+                                <li class="recipe-details-item ">
+                                    <i class="fas fa-check"></i>
+                                    <span class="value">20</span>
+                                    <span class="title">Carbohydrates</span>
+                                </li>
+                                <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">5</span><span class="title">Saturated Fat</span></li>
+                                <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">4-6</span><span class="title">Serving</span></li>
+                                <li class="recipe-details-item "><i class="fas fa-check"></i><span class="value">5</span><span class="title">Net Carbohydrates</span></li>
+                            </ul>
+                        </div>
+
+                        <button class="close" (click)="isReadMoreClicked=false"> X </button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</div>
+<app-footer></app-footer>

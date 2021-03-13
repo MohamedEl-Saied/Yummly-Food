@@ -1,0 +1,203 @@
+<app-header></app-header>
+<ngx-spinner type="none">
+    <div class="pan-loader">
+        <div class="loader"></div>
+        <div class="pan-container">
+            <div class="pan"></div>
+            <div class="handle"></div>
+        </div>
+    </div>
+</ngx-spinner>
+
+<div class="pt-5 main-container {{ isDark ? 'dark' : '' }}">
+    <div class="show-posts__container row">
+        <div class="user mb-4" *ngIf="user">
+            <div class="user__image">
+                <img [src]="sanitizeImageUrl(user.imageURL)" alt="">
+            </div>
+            <div class="user__info">
+                <h3> {{user.username}}
+                </h3>
+                <hr>
+
+                <h5> {{user.email}}
+                </h5>
+                <hr>
+                <div class="user-stats">
+
+                    <h6 data-tooltip="Posts" data-position="top left" data-variation="wide">
+                        <i class="fas fa-newspaper "></i>
+                        <span>{{user.posts.length}}</span>
+                    </h6>
+                    <h6 data-tooltip="Comments" data-position="top left" data-variation="wide"><i class="fas fa-comment"></i> <span>{{user.comments.length}}</span>
+                    </h6>
+                    <h6 data-tooltip="Favorite Posts" data-position="top right" data-variation="wide"><i class="fas fa-star"></i>
+                        <span>{{user.favoritePosts.length}}</span>
+                    </h6>
+                    <h6 data-tooltip="Favorite Recipies" data-position="top left" data-variation="wide">
+                        <i class="fas fa-hamburger"></i>
+                        <span>{{user.favoriteRecipes.length}}</span>
+                    </h6>
+                </div>
+
+
+
+
+
+
+
+                <hr>
+                <div class="links-container">
+                    <a class="ui inverted primary button" routerLink="/community/profile/{{userID}}">View Profile</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="posts col-md-5">
+            <flash-messages></flash-messages>
+            <ng-container *ngIf="user">
+
+                <div class="posts__show mb-4" *ngFor="let post of posts;let currentIndex=index">
+                    <div class="author">
+
+                        <img [src]="sanitizeImageUrl(post.author.imageURL)" alt="">
+
+                        <div class="author__area">
+
+                            <div class="author__info mt-3">
+                                <h3>{{post.author.username}}</h3>
+                                <h6>{{ stringAsDate(post.createdAt) | date:'dd/MM/yy' }}</h6>
+                                <h6>{{ stringAsDate(post.createdAt) | date:'HH:mm' }}</h6>
+
+                            </div>
+                            <div class="post__action mt-3 {{changeValueToCurrentIndex == currentIndex ? 'move-to-left' : ''}}">
+
+                                <i class="{{changeValueToCurrentIndex == currentIndex ? 'fas fa-angle-right' : 'fas fa-angle-left'}}" (click)="setCurrentIndexValue(currentIndex)"></i>
+
+
+                                <i class="fas fa-eye" routerLink="/community/get-post/{{post._id}}"></i>
+                                <i *ngIf="userID == post.author._id" (click)="editButtonClicked(post._id,currentIndex)" class="fas fa-edit"></i>
+                                <i *ngIf="userID == post.author._id" class="fas fa-trash" (click)="deletePost(post._id , currentIndex)"></i>
+                                <i class="far fa-star {{post.isFav ? 'add' : ''}}" (click)="post.isFav ? removeFavorite(post._id)  : addFavorite(post._id) ; post.isFav = !post.isFav"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr>
+                    <div class="post">
+                        <h3>{{post.title}}</h3>
+                        <div *ngIf="!post.content.includes('http');else other_contentt">
+                            <p>{{post.content}}</p>
+                        </div>
+                        <ng-template #other_contentt>
+                            <a routerLink="{{post.content.split('localhost:4200')[1]}}">Click here to show
+                                recipe</a>
+                        </ng-template>
+                        <div class="post__image" *ngIf="post.imageURL != ''&&!post.imageURL.includes('https');else other_content">
+                            <img #image [src]="sanitizeImageUrl(post.imageURL)" alt="">
+                        </div>
+                        <ng-template #other_content>
+                            <img src="{{post.imageURL}}" alt="">
+                        </ng-template>
+                        <hr style="width: 100%;" class="mt-4">
+                        <div class="reacts mt-3">
+                            <!-- <i class="fas fa-heart"></i> -->
+                            <div class="love">
+                                <h4>
+                                    <i class=" fa-heart
+                                     {{
+                                         user.likedPosts.includes(post._id) ? 'fas' : 'far'
+                                        }}
+
+                                    " (click)="likeOrUnlikePost(post._id,currentIndex)">
+                                    </i>
+                                </h4>
+                                <h4 *ngIf="post.likes.like>0"> {{post.likes.like}}</h4>
+                                <h4 *ngIf="post.likes.like==0"> no reacts yet!</h4>
+
+                            </div>
+                            <div class="comment">
+                                <h4><i class="far fa-comment-alt"></i> </h4>
+                                <h4 *ngIf="post.comments.length>0"> {{post.comments.length}}</h4>
+                                <h4 *ngIf="post.comments.length==0"> no comments yet!</h4>
+
+                            </div>
+                        </div>
+                        <hr style="width: 100%;" class="mt-4">
+                        <div class="comments">
+                            <div class="comments__show">
+
+                                <div class="comment__author" *ngFor="let comment of post.comments;let currentCommentIndex=index">
+                                    <img [src]="sanitizeImageUrl(comment.author.imageURL)" alt="">
+
+                                    <div class="comment__author--info">
+                                        <h3>{{comment.author.username}}</h3>
+                                        <p>{{comment.comment}} </p>
+
+                                    </div>
+                                    <div class="comment__action" *ngIf="userID == comment.author._id">
+
+                                        <i (click)="getCommentValue(comment)" class="fas fa-edit"></i>
+                                        <i (click)="deleteComment(post._id,comment._id,currentIndex,currentCommentIndex)" class="fas fa-trash"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="add-comment ui large form" *ngIf="user">
+                        <img [src]="sanitizeImageUrl(user.imageURL)" alt="">
+                        <!-- <button class="ui red button ">Create Post</button> -->
+                        <textarea rows="1" placeholder="Leave Your Comment" #commentInput value="{{isEditComment? commentValue : ''  }}"></textarea>
+                        <i (click)="addComment(commentInput.value,post._id,currentIndex) ;commentInput.value='' ;isEditClicked = false;" class="fas fa-arrow-circle-right"></i>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<app-footer *ngIf="showFooter"></app-footer>
+<!-- <button class="button" > Create Post</button> -->
+<div class="popup {{isEditClicked ? 'target' : ''}}" id="popup">
+    <div class="popup-inner">
+        <div class="popup__photo">
+            <img src="../../../../assets/images/post.jpeg" alt="">
+        </div>
+        <form onsubmit="return false" [formGroup]="form" class="popup__text ui  form">
+
+            <div class="field form-group">
+                <label class="pop-form-label">Post Title</label>
+                <input type="text" #title formControlName="Title" class="form-control" placeholder="Title" value="{{isEditClicked ? postContent.title : ''}}">
+                <div *ngIf="form.controls['Title'].invalid && (form.controls['Title'].touched || form.controls['Title'].dirty)">
+                    <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Title'].hasError('required')">required Title
+                    </h6>
+                    <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Title'].hasError('minlength')">min length is 10</h6>
+                    <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Title'].hasError('maxlength')">max length is 255</h6>
+                </div>
+            </div>
+            <div class="field form-group">
+                <label class="pop-form-label">Your Post</label>
+                <textarea #content formControlName="Content" class="form-control" rows="2" placeholder="Your Post " value="{{isEditClicked ? postContent.content : ''}}"></textarea>
+                <div *ngIf="form.controls['Content'].invalid && (form.controls['Content'].touched || form.controls['Content'].dirty)">
+                    <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Content'].hasError('required')">required Content
+                    </h6>
+                    <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Content'].hasError('minlength')">min length is 20</h6>
+                    <h6 class="form-text alert alert-danger role-alert" *ngIf="form.controls['Content'].hasError('maxlength')">max length is 1024</h6>
+                </div>
+            </div>
+            <div class="field">
+                <label class="file">
+                    <input name="image" (change)="onFileChanged($event)" type="file" id="file"
+                        aria-label="File browser example">
+                    <span class="file-custom"></span>
+                </label>
+            </div>
+            <button [disabled]="form.invalid" (click)="isEditClicked ? editPost(title.value,content.value) : '' ; title.value='' ; content.value='' ; isEditClicked = false" class="ui black button">Submit</button>
+        </form>
+
+        <a (click)="isEditClicked = false" class="popup__close">X</a>
+    </div>
+</div>

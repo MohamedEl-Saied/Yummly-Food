@@ -1,0 +1,45 @@
+<app-header></app-header>
+<div class="main-container {{ isDark ? 'dark' : '' }}">
+    <div style="margin-top: 9rem;" [formGroup]="contactForm" class="contact-form {{ isDark ? 'dark' : '' }}">
+        <div class="first-container">
+        </div>
+        <div class="second-container">
+            <div class="col-xs-6" *ngIf="showMsg">
+                <p class="alert alert-success text-center">
+                    <span>Massage Sent Successfully!</span>
+                </p>
+            </div>
+            <h2>Contact Us</h2>
+            <form (submit)="sendEmail($event)" [formGroup]="contactForm">
+                <div class="form-group">
+                    <label for="name-input">Tell us your name*</label>
+                    <input name="user_name" id="name-input" type="text" placeholder="Full Name" formControlName="fullname" required>
+                    <div *ngIf="contactForm.controls['fullname'].invalid && (contactForm.controls['fullname'].dirty || contactForm.controls['fullname'].touched)" class="alert alert-danger">
+                        <span *ngIf="contactForm.controls['fullname'].errors.required">Name is required.</span>
+                        <span *ngIf="contactForm.controls['fullname'].errors.minlength">Name minlength must be 4</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email-input">Enter your email*</label>
+                    <input name="user_email" id="email-input" type="text" placeholder="example@email.com" formControlName="email" required>
+                    <div *ngIf="contactForm.controls['email'].invalid && (contactForm.controls['email'].dirty || contactForm.controls['email'].touched)" class="alert alert-danger">
+                        <div *ngIf="contactForm.controls['email'].errors.required">Email is required.</div>
+                        <div *ngIf="contactForm.controls['email'].errors.email">Enter a valid Email</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message-textarea">Message</label>
+                    <textarea name="message" id="message-textarea" placeholder="Write us a message" formControlName="message"></textarea>
+                    <div *ngIf="contactForm.controls['message'].invalid && (contactForm.controls['message'].dirty || contactForm.controls['message'].touched)" class="alert-danger">
+                        <span *ngIf="contactForm.controls['message'].errors.required">Massage is required.</span>
+                        <span *ngIf="contactForm.controls['message'].errors.minlength">Massage minlength must be
+                            10</span>
+                    </div>
+                </div>
+                <button>Send
+                    message</button>
+            </form>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

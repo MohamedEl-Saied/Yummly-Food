@@ -1,0 +1,89 @@
+<div class="row" *ngIf="!isResponsDone">
+    <div class="col-lg-12">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>
+<div class="main-content" *ngIf="isResponsDone">
+    <div class="container-fluid">
+        <div class="row">
+            <mat-form-field class="example-full-width offset-3 col-md-6">
+                <mat-label>Search</mat-label>
+                <input matInput placeholder="Search for message" (change)="search($event)">
+                <i class="material-icons search-icon ">search</i>
+            </mat-form-field>
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Comments Table</h4>
+                        <p class="card-category"> All comments stats</p>
+                    </div>
+                    <div class="card-body ">
+                        <div class="table-responsive ">
+                            <table class="table table-hover">
+                                <thead class="text-danger">
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Comment
+                                    </th>
+
+                                    <th>
+                                        Author
+                                    </th>
+
+
+                                    <th>
+                                        Created AT
+                                    </th>
+
+                                    <th>
+                                        Last Update
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                    </th>
+                                </thead>
+                                <tbody class="text-black" *ngFor="let comment of comments;let currentIndex = index">
+                                    <tr>
+                                        <td>
+                                            {{currentIndex+1}}
+                                        </td>
+                                        <td>
+                                            {{comment.comment}}
+                                        </td>
+                                        <td>
+                                            {{comment.author.username}}
+                                        </td>
+
+                                        <td>{{ stringAsDate(comment.createdAt) | date:'dd/MM/yy' }} || {{ stringAsDate(comment.createdAt) | date:'hh:mm' }}
+                                        </td>
+
+                                        <td>{{ stringAsDate(comment.updatedAt) | date:'dd/MM/yy' }} || {{ stringAsDate(comment.updatedAt) | date:'hh:mm' }}
+                                        </td>
+
+
+                                        <td>
+                                            <i class="material-icons" routerLink="/dashboard/comment/{{comment._id}}/details">remove_red_eye</i>
+                                            <i routerLink="/dashboard/comment/{{ comment._id }}" class="material-icons">mode</i>
+                                            <!-- (click)="deletePost(post._id,post.title,currentIndex)" -->
+                                            <i (click)="deleteComment(comment._id,comment.comment,currentIndex)" class="material-icons">delete</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

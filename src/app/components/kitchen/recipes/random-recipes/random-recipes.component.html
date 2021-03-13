@@ -1,0 +1,46 @@
+<app-header></app-header>
+<app-chatbot></app-chatbot>
+<ngx-spinner type="none">
+    <div class="pan-loader">
+        <div class="loader"></div>
+        <div class="pan-container">
+            <div class="pan"></div>
+            <div class="handle"></div>
+        </div>
+    </div>
+</ngx-spinner>
+<div class="parts {{ isDark ? 'dark' : '' }}">
+    <div>
+        <a (click)="back()" class="previous round">
+            <i class="fas fa-long-arrow-alt-left" style="color:#f98169"></i></a>
+        <a (click)="refresh()" class="previous round">
+            <i class="fas fa-redo" style="color:#f98169"></i> Get another random recipes</a>
+    </div>
+    <div class="row mt-5 ">
+        <div class="header__contianer col-md-12 mt-5">
+            <h3 class="header--title">Explore Our Popular Recipes
+                <hr>
+            </h3>
+        </div>
+        <div class="col-md-4 mt-4" *ngFor="let recipe of randomRecipes">
+            <div class="food-item">
+                <h2>{{ recipe.dishTypes[0] }}
+                </h2>
+                <img src="{{ recipe.image }}" alt="">
+                <div class="price"><i class="ion fa fa-user-friends"></i>{{ recipe.servings }}
+                </div>
+                <div class="text-content">
+                    <h4>{{ recipe.title }}</h4>
+                    <i class="ion fa fa-clock"></i><span class="value">{{ recipe.readyInMinutes
+                        }}</span><span class="title"> Minutes</span>
+                    <footer class="content__footer">
+                        <a routerLink="/kitchen/recipes/recipe-details/{{
+            recipe.id
+          }}/information">View Recipe</a>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,87 @@
+<div class="row" *ngIf="!isResponsDone">
+    <div class="col-lg-12">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>
+<div class="main-content" *ngIf="isResponsDone">
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <mat-form-field class="example-full-width offset-3 col-md-6">
+                <mat-label>Search</mat-label>
+                <input matInput placeholder="Search for message" (change)="search($event)">
+                <i class="material-icons search-icon ">search</i>
+            </mat-form-field>
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Feedback Table</h4>
+                        <p class="card-category text-white"> All feedback messages</p>
+                    </div>
+                    <div class="card-body ">
+                        <div class="table-responsive ">
+                            <table class="table table-hover">
+                                <thead class="text-primary">
+                                    <th>
+                                        #
+                                    </th>
+
+
+                                    <th>
+                                        Fullname
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Message
+                                    </th>
+                                    <th>
+                                        Created AT
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                    </th>
+                                </thead>
+                                <tbody class="text-black" *ngFor="let contact of contacts;let currentIndex = index">
+                                    <tr>
+                                        <td>
+                                            {{currentIndex+1}}
+                                        </td>
+                                        <td>
+                                            {{contact.fullname}}
+                                        </td>
+                                        <td>
+                                            {{contact.email}}
+                                        </td>
+                                        <td>
+                                            {{contact.message}}
+                                        </td>
+                                        <td>{{ stringAsDate(contact.createdAt) | date:'dd/MM/yy' }} || {{ stringAsDate(contact.createdAt) | date:'hh:mm' }}
+                                        </td>
+
+
+
+                                        <td>
+
+                                            <i (click)="deleteContact(contact._id,contact.email,currentIndex)" class="material-icons">delete</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

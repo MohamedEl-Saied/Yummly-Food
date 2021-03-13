@@ -1,0 +1,112 @@
+<app-header></app-header>
+<app-chatbot></app-chatbot>
+<ngx-spinner type="none">
+    <div class="pan-loader">
+        <div class="loader"></div>
+        <div class="pan-container">
+            <div class="pan"></div>
+            <div class="handle"></div>
+        </div>
+    </div>
+</ngx-spinner>
+
+<div class="cont_principal {{ isDark ? 'dark' : '' }}">
+    <section id="home" class="slider">
+        <div class="item item-first">
+            <div class="caption">
+                <div class="container">
+                    <div>
+                        <p>Search for ingredient</p>
+                        <div class="wrapper">
+                            <input type="checkbox" />
+                            <div class="btn"><i class="fas fa-info"></i></div>
+                            <div class="tooltip">
+                                <span>Here you can find all nutrients for each ingredient</span>
+                            </div>
+                        </div>
+                    </div>
+                    <form onSubmit="return false; ">
+                        <div class="input-icons">
+                            <input #ingredientname class="input-field" type="text" placeholder="Search for ingredient" />
+                        </div>
+                        <div class="sub-container">
+                            <div class="button-container">
+                                <button class="btn btn-1" (click)="onSubmit(ingredientname.value)">
+                                    <svg>
+                                        <rect x="0 " y="0 " fill="none " width="100% " height="100% " />
+                                    </svg>
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ingredients__container">
+
+        <h3 class="ingredient__title my-3">You have searched for <em>
+                {{ingredientName}}
+            </em></h3>
+        <div class="ft-recipe my-5" *ngFor="let ingredient of ingredientDetails; let currentIndex = index">
+
+            <div>
+                <div class="ft-recipe__thumb">
+                    <img src="https://spoonacular.com/cdn/ingredients_500x500/{{ingredient.image}}" alt="Strawberry Waffle" />
+                </div>
+                <div class="ft-recipe__content">
+                    <header class="content__header">
+                        <div class="row-wrapper">
+                            <h2 class="recipe-title">{{ingredient.name}}</h2>
+                            <div class="user-rating"></div>
+                        </div>
+                        <ul class="recipe-details">
+                            <li class="recipe-details-item " *ngFor="let nutrients of ingredient.nutrition.nutrients;let nutrientsIndex = index">
+                                <ng-container *ngIf="nutrientsIndex < 4">
+                                    <i class="fas fa-check"></i>
+                                    <span class="value">{{nutrients.amount}}</span>
+                                    <span class="title">{{nutrients.name}}</span>
+                                </ng-container>
+                            </li>
+
+                        </ul>
+                    </header>
+
+                    <footer class="content__footer">
+                        <a (click)="isReadMoreClicked=currentIndex">More Details</a>
+                    </footer>
+                    <div class="popup {{ isReadMoreClicked == currentIndex ?  'show' : ''}}">
+
+                        <div class="popup__content">
+                            <div class="image__container">
+                                <img src="https://spoonacular.com/cdn/ingredients_500x500/{{ingredient.image}}" alt="">
+                            </div>
+                            <div class="ingredient__details">
+                                <h3>{{ingredient.name}}</h3>
+                                <ul class="recipe-details">
+                                    <li class="recipe-details-item " *ngFor="let nutrients of ingredient.nutrition.nutrients;let nutrientsIndex = index">
+
+                                        <i class="fas fa-check"></i>
+                                        <span class="value">{{nutrients.amount}}</span>
+                                        <span class="title">{{nutrients.name}}</span>
+
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <button class="close" (click)="isReadMoreClicked=null"> X </button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+<app-footer></app-footer>
