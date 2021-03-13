@@ -4,9 +4,9 @@
 @import "./style/style.scss";
 @font-face {
   font-family: "NevisBold";
-  src: local("NevisBold"),
-    url(../../../../../assets/font/NevisBold-KGwl.ttf) format("truetype");
+  src: local("NevisBold"), url(../../../../../assets/font/NevisBold-KGwl.ttf) format("truetype");
 }
+
 
 .button-container {
   width: 30%;
